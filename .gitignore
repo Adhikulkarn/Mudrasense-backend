@@ -1,3 +1,4 @@
-# Ignore YOLO model weights
-best.pt
+__pycache__/
+*.pyc
 *.pt
+.env
