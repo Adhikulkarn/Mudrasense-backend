@@ -1,11 +1,19 @@
 from ultralytics import YOLO
+import cv2
+import numpy as np
 
 class YoloService:
     def __init__(self, model_path="best.pt"):
-        self.model = YOLO("/home/spidy/Desktop/Projects/Mudrasense-backend/best.pt")
+        self.model = YOLO(model_path)
 
-    def predict(self, image_path: str):
-        results = self.model.predict(image_path)
+    def predict(self, image):
+        # If path is given, read the image
+        if isinstance(image, str):
+            img = cv2.imread(image)
+        else:
+            img = image  # assume it's already a numpy array
+
+        results = self.model.predict(img)
         detections = []
         for r in results:
             for box in r.boxes:
